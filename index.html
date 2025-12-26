@@ -41,6 +41,11 @@
       color: #999;
     }
 
+    section {
+      padding: 60px 20px;
+      border-top: 1px solid #222;
+    }
+
     .buttons button {
       background: #c00000;
       border: none;
@@ -50,24 +55,24 @@
       font-size: 16px;
       cursor: pointer;
       border-radius: 6px;
-      transition: background 0.3s;
     }
 
     .buttons button:hover {
       background: #ff0000;
     }
 
-    section {
-      padding: 60px 20px;
-      border-top: 1px solid #222;
-    }
-
-    .tokenomics {
-      max-width: 500px;
+    .tokenomics, .contract-box {
+      max-width: 600px;
       margin: auto;
       text-align: left;
       font-size: 17px;
       color: #aaa;
+      word-break: break-all;
+    }
+
+    .contract-actions {
+      text-align: center;
+      margin-top: 20px;
     }
 
     footer {
@@ -81,72 +86,86 @@
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <img src="https://n4k4sh0j1.github.io/NAK/logo.png" alt="NAK Logo">
-    <h1>NAKIOCOIN</h1>
-    <p>
-      Criptomoeda minimalista com estética oriental, focada em escassez,
-      identidade forte e crescimento sustentável.
+<header>
+  <img src="https://n4k4sh0j1.github.io/NAK/logo.png" alt="NAK Logo">
+  <h1>NAKIOCOIN</h1>
+
+  <p>
+    NAKIOCOIN é um ativo digital criado para integrar-se ao ecossistema blockchain,
+    permitindo negociações descentralizadas, interação com carteiras digitais
+    e futuras aplicações Web3.
+  </p>
+
+  <div class="buttons">
+    <button onclick="addToken()">➕ Adicionar NAK à MetaMask</button>
+    <button onclick="alert('Em breve na DEX')">💱 Comprar NAK</button>
+  </div>
+</header>
+
+<section>
+  <h2>Tokenomics</h2>
+  <div class="tokenomics">
+    <p><strong>Nome:</strong> NAKIOCOIN</p>
+    <p><strong>Símbolo:</strong> NAK</p>
+    <p><strong>Rede:</strong> Ethereum (ERC-20)</p>
+    <p><strong>Suprimento Total:</strong> 555.555.555 NAK</p>
+    <p><strong>Taxas:</strong> 0%</p>
+  </div>
+</section>
+
+<section>
+  <h2>Contrato</h2>
+  <div class="contract-box">
+    <p><strong>Endereço do Contrato:</strong></p>
+    <p id="contract">
+      0xd9145CCE52D386f254917e481eB44e9943F39138
     </p>
+  </div>
 
-    <div class="buttons">
-      <button onclick="addToken()">➕ Adicionar NAK à MetaMask</button>
-      <button onclick="alert('Em breve na DEX')">💱 Comprar NAK</button>
-    </div>
-  </header>
+  <div class="contract-actions">
+    <button onclick="copyContract()">📋 Copiar endereço</button>
+    <button onclick="openEtherscan()">🔗 Ver no Etherscan</button>
+  </div>
+</section>
 
-  <!-- TOKENOMICS -->
-  <section>
-    <h2>Tokenomics</h2>
-    <div class="tokenomics">
-      <p><strong>Nome:</strong> NAKIOCOIN</p>
-      <p><strong>Símbolo:</strong> NAK</p>
-      <p><strong>Rede:</strong> Ethereum (ERC-20)</p>
-      <p><strong>Suprimento Total:</strong> 555.555.555 NAK</p>
-      <p><strong>Liquidez:</strong> Inicial e planejada para DEX</p>
-      <p><strong>Taxas:</strong> 0%</p>
-    </div>
-  </section>
+<footer>
+  © 2025 NAKIOCOIN — Todos os direitos reservados
+</footer>
 
-  <!-- ROADMAP -->
-  <section>
-    <h2>Roadmap</h2>
-    <p>
-      Fase 1 – Criação do token e identidade visual<br>
-      Fase 2 – Site oficial e integração MetaMask<br>
-      Fase 3 – Liquidez, verificação e expansão
-    </p>
-  </section>
+<script>
+  const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
 
-  <!-- FOOTER -->
-  <footer>
-    © 2025 NAKIOCOIN — Todos os direitos reservados
-  </footer>
-
-  <!-- SCRIPT METAMASK -->
-  <script>
-    const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
-
-    function addToken() {
-      if (window.ethereum) {
-        ethereum.request({
-          method: "wallet_watchAsset",
-          params: {
-            type: "ERC20",
-            options: {
-              address: CONTRACT_ADDRESS,
-              symbol: "NAK",
-              decimals: 18,
-              image: "https://n4k4sh0j1.github.io/NAK/logo.png"
-            }
+  function addToken() {
+    if (window.ethereum) {
+      ethereum.request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC20",
+          options: {
+            address: CONTRACT_ADDRESS,
+            symbol: "NAK",
+            decimals: 18,
+            image: "https://n4k4sh0j1.github.io/NAK/logo.png"
           }
-        });
-      } else {
-        alert("MetaMask não encontrada.");
-      }
+        }
+      });
+    } else {
+      alert("MetaMask não encontrada.");
     }
-  </script>
+  }
+
+  function copyContract() {
+    navigator.clipboard.writeText(CONTRACT_ADDRESS);
+    alert("Endereço do contrato copiado!");
+  }
+
+  function openEtherscan() {
+    window.open(
+      "https://etherscan.io/address/" + CONTRACT_ADDRESS,
+      "_blank"
+    );
+  }
+</script>
 
 </body>
 </html>
