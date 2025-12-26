@@ -1,180 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>NAKIOCOIN (NAK)</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Fonte -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- ethers.js -->
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 
   <style>
     body {
       margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #0f172a, #020617);
-      color: #e5e7eb;
-      font-family: Inter, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .card {
-      background: #020617cc;
-      border-radius: 24px;
-      padding: 40px;
-      width: 100%;
-      max-width: 720px;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #ccc;
       text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
     }
 
-    h1 {
-      color: #38bdf8;
-      font-size: 36px;
-      margin-bottom: 10px;
+    header {
+      padding: 60px 20px;
     }
 
-    p {
-      color: #cbd5f5;
+    header img {
+      width: 120px;
       margin-bottom: 20px;
     }
 
-    button {
-      width: 100%;
-      margin-top: 12px;
-      padding: 14px;
-      border-radius: 999px;
+    h1 {
+      font-size: 42px;
+      color: #b0b0b0;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #b0b0b0;
+      margin-bottom: 20px;
+    }
+
+    p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      font-size: 18px;
+      color: #999;
+    }
+
+    .buttons button {
+      background: #c00000;
       border: none;
+      color: #fff;
+      padding: 15px 30px;
+      margin: 10px;
       font-size: 16px;
-      font-weight: 700;
       cursor: pointer;
-      background: linear-gradient(90deg, #22c55e, #16a34a);
-      color: #020617;
+      border-radius: 6px;
+      transition: background 0.3s;
     }
 
-    button.secondary {
-      background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    .buttons button:hover {
+      background: #ff0000;
     }
 
-    button.dark {
-      background: linear-gradient(90deg, #a855f7, #7c3aed);
-      color: white;
+    section {
+      padding: 60px 20px;
+      border-top: 1px solid #222;
     }
 
-    .info {
-      margin-top: 25px;
-      background: #020617;
-      border-radius: 16px;
-      padding: 15px;
-      font-size: 14px;
-      word-break: break-all;
-      display: none;
+    .tokenomics {
+      max-width: 500px;
+      margin: auto;
+      text-align: left;
+      font-size: 17px;
+      color: #aaa;
     }
 
     footer {
-      margin-top: 30px;
-      font-size: 13px;
-      color: #64748b;
+      padding: 30px;
+      font-size: 14px;
+      color: #666;
+      border-top: 1px solid #222;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="card">
+  <!-- HEADER -->
+  <header>
+    <img src="https://n4k4sh0j1.github.io/NAK/logo.png" alt="NAK Logo">
     <h1>NAKIOCOIN</h1>
-    <p>Token oficial NAK • Suprimento: 555.555.555</p>
+    <p>
+      Criptomoeda minimalista com estética oriental, focada em escassez,
+      identidade forte e crescimento sustentável.
+    </p>
 
-    <button onclick="connectWallet()">🦊 Conectar MetaMask</button>
-
-    <div id="walletInfo" class="info">
-      <p><b>Carteira:</b></p>
-      <p id="walletAddress"></p>
-      <p><b>Saldo NAK:</b></p>
-      <p id="nakBalance">0</p>
+    <div class="buttons">
+      <button onclick="addToken()">➕ Adicionar NAK à MetaMask</button>
+      <button onclick="alert('Em breve na DEX')">💱 Comprar NAK</button>
     </div>
+  </header>
 
-    <button class="secondary" onclick="buyNAK()">💰 Comprar NAK</button>
+  <!-- TOKENOMICS -->
+  <section>
+    <h2>Tokenomics</h2>
+    <div class="tokenomics">
+      <p><strong>Nome:</strong> NAKIOCOIN</p>
+      <p><strong>Símbolo:</strong> NAK</p>
+      <p><strong>Rede:</strong> Ethereum (ERC-20)</p>
+      <p><strong>Suprimento Total:</strong> 555.555.555 NAK</p>
+      <p><strong>Liquidez:</strong> Inicial e planejada para DEX</p>
+      <p><strong>Taxas:</strong> 0%</p>
+    </div>
+  </section>
 
-    <button class="dark" onclick="addTokenToMetaMask()">➕ Adicionar NAK à MetaMask</button>
+  <!-- ROADMAP -->
+  <section>
+    <h2>Roadmap</h2>
+    <p>
+      Fase 1 – Criação do token e identidade visual<br>
+      Fase 2 – Site oficial e integração MetaMask<br>
+      Fase 3 – Liquidez, verificação e expansão
+    </p>
+  </section>
 
-    <footer>
-      Contrato: <br>
-      0xd9145CCE52D386f254917e481eB44e9943F39138
-    </footer>
-  </div>
+  <!-- FOOTER -->
+  <footer>
+    © 2025 NAKIOCOIN — Todos os direitos reservados
+  </footer>
 
-<script>
-  const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+  <!-- SCRIPT METAMASK -->
+  <script>
+    const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
 
-  const ABI = [
-    "function balanceOf(address owner) view returns (uint256)",
-    "function decimals() view returns (uint8)"
-  ];
-
-  let provider;
-  let signer;
-  let contract;
-
-  async function connectWallet() {
-    if (!window.ethereum) {
-      alert("MetaMask não encontrada");
-      return;
-    }
-
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    signer = provider.getSigner();
-
-    const address = await signer.getAddress();
-    document.getElementById("walletAddress").innerText = address;
-    document.getElementById("walletInfo").style.display = "block";
-
-    contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
-    const balance = await contract.balanceOf(address);
-    const decimals = await contract.decimals();
-
-    document.getElementById("nakBalance").innerText =
-      ethers.utils.formatUnits(balance, decimals) + " NAK";
-  }
-
-  function buyNAK() {
-    window.open(
-      "https://app.uniswap.org/#/swap?outputCurrency=" + CONTRACT_ADDRESS,
-      "_blank"
-    );
-  }
-
-  async function addTokenToMetaMask() {
-    if (!window.ethereum) {
-      alert("MetaMask não encontrada");
-      return;
-    }
-
-    try {
-      await window.ethereum.request({
-        method: "wallet_watchAsset",
-        params: {
-          type: "ERC20",
-          options: {
-            address: CONTRACT_ADDRESS,
-            symbol: "NAK",
-            decimals: 18
+    function addToken() {
+      if (window.ethereum) {
+        ethereum.request({
+          method: "wallet_watchAsset",
+          params: {
+            type: "ERC20",
+            options: {
+              address: CONTRACT_ADDRESS,
+              symbol: "NAK",
+              decimals: 18,
+              image: "https://n4k4sh0j1.github.io/NAK/logo.png"
+            }
           }
-        }
-      });
-    } catch (error) {
-      console.log(error);
+        });
+      } else {
+        alert("MetaMask não encontrada.");
+      }
     }
-  }
-</script>
+  </script>
 
 </body>
 </html>
-
