@@ -61,7 +61,7 @@
       background: #ff0000;
     }
 
-    .tokenomics, .contract-box {
+    .tokenomics, .contract-box, .whitepaper-box {
       max-width: 600px;
       margin: auto;
       text-align: left;
@@ -70,9 +70,23 @@
       word-break: break-all;
     }
 
-    .contract-actions {
+    .contract-actions, .whitepaper-actions {
       text-align: center;
       margin-top: 20px;
+    }
+
+    .whitepaper-actions a {
+      background: #c00000;
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 6px;
+      margin: 5px;
+      display: inline-block;
+    }
+
+    .whitepaper-actions a:hover {
+      background: #ff0000;
     }
 
     footer {
@@ -117,14 +131,22 @@
   <h2>Contract</h2>
   <div class="contract-box">
     <p><strong>Contract Address:</strong></p>
-    <p id="contract">
-      0xd9145CCE52D386f254917e481eB44e9943F39138
-    </p>
+    <p id="contract">0xd9145CCE52D386f254917e481eB44e9943F39138</p>
   </div>
 
   <div class="contract-actions">
     <button onclick="copyContract()">📋 Copy Address</button>
     <button onclick="openEtherscan()">🔗 View on Etherscan</button>
+  </div>
+</section>
+
+<section>
+  <h2>Whitepaper</h2>
+  <div class="whitepaper-box">
+    <p>Download the official NAKIOCOIN whitepaper:</p>
+  </div>
+  <div class="whitepaper-actions">
+    <a href="https://github.com/N4K4SH0J1/NAK/blob/main/Documento%20sem%20t%C3%ADtulo%20(1).pdf?raw=true" target="_blank">📄 Download PDF</a>
   </div>
 </section>
 
