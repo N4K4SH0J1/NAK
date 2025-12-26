@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>NAKIOCOIN (NAK)</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      color: #e5e7eb;
+      font-family: Inter, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: #1e293b;
+      padding: 40px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+    }
+    h1 { color: #38bdf8; }
+    button {
+      margin-top: 15px;
+      padding: 12px 30px;
+      font-size: 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      color: #020617;
+      font-weight: 700;
+    }
+    .info {
+      margin-top: 20px;
+      background: #020617;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 14px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>NAKIOCOIN</h1>
+  <p>Conecte sua MetaMask para ver seu saldo</p>
+
+  <button onclick="connectWallet()">🦊 CONECTAR METAMASK</button>
+
+  <div id="walletInfo" class="info" style="display:none;">
+    <p><b>Carteira:</b></p>
+    <p id="walletAddress"></p>
+    <p><b>Saldo NAK:</b></p>
+    <p id="nakBalance">0</p>
+  </div>
+
+  <button onclick="buyNAK()">💰 COMPRAR NAK</button>
+</div>
+
+<script>
+  const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+
+  const ABI = [
+    "function balanceOf(address owner) view returns (uint256)",
+    "function decimals() view returns (uint8)"
+  ];
+
+  let provider;
+  let signer;
+  let contract;
+
+  async function connectWallet() {
+    if (!window.ethereum) {
+      alert("Instale a MetaMask!");
+      return;
+    }
+
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    signer = provider.getSigner();
+
+    const address = await signer.getAddress();
+    document.getElementById("walletAddress").innerText = address;
+    document.getElementById("walletInfo").style.display = "block";
+
+    contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
+    const balance = await contract.balanceOf(address);
+    const decimals = await contract.decimals();
+
+    document.getElementById("nakBalance").innerText =
+      ethers.utils.formatUnits(balance, decimals) + " NAK";
+  }
+
+  function buyNAK() {
+    window.open(
+      "https://app.uniswap.org/#/swap?outputCurrency=" + CONTRACT_ADDRESS,
+      "_blank"
+    );
+  }
+</script>
+
+</body>
+</html>
+
+
